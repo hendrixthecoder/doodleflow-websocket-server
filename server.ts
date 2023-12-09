@@ -18,6 +18,8 @@ io.on("connection", (socket) => {
   socket.on(
     "drawLine",
     ({ prevPoint, currentPoint, color, lineWidth }: DrawLine) => {
+      console.log(`Frontend connected to socket at: ${new Date}`);
+      
       socket.broadcast.emit("drawLine", {
         prevPoint,
         currentPoint,
