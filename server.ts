@@ -14,6 +14,7 @@ const io = new Server(server, {
   },
 });
 
+
 io.on("connection", (socket) => {
   socket.on(
     "drawLine",
@@ -28,6 +29,15 @@ io.on("connection", (socket) => {
       });
     }
   );
+
+  socket.on("ready", (newUser) => {
+    socket.broadcast.emit("addNewUser", newUser)
+  })
+
+  socket.on("userLeft", (newUser) => {
+    socket.broadcast.emit("removeUser", newUser);
+  });
+
 });
 
 server.listen(3001, () => console.log(`Server listening on port 3001`));
