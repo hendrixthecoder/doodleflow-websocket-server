@@ -19,8 +19,6 @@ io.on("connection", (socket) => {
   socket.on(
     "drawLine",
     ({ prevPoint, currentPoint, color, lineWidth }: DrawLine) => {
-      console.log(`Frontend connected to socket at: ${new Date}`);
-      
       socket.broadcast.emit("drawLine", {
         prevPoint,
         currentPoint,
@@ -37,6 +35,10 @@ io.on("connection", (socket) => {
   socket.on("userLeft", (newUser: User) => {
     socket.broadcast.emit("removeUser", newUser);
   });
+
+  socket.on("clear", () => {
+    socket.broadcast.emit("clearBoard")
+  })
 
 });
 
