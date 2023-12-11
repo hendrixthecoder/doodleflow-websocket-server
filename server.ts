@@ -29,7 +29,12 @@ io.on("connection", (socket) => {
   );
 
   socket.on("ready", (newUser: User) => {
+    socket.broadcast.emit('get-canvas-state')
     socket.broadcast.emit("addNewUser", newUser)
+  })
+
+  socket.on('canvas-state', (state: string) => {
+    socket.broadcast.emit('canvas-state-from-server', state)
   })
 
   socket.on("userLeft", (newUser: User) => {
