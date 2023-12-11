@@ -3,7 +3,7 @@ const http = require("http");
 require("dotenv").config();
 
 import { Server } from "socket.io";
-import { DrawLine } from "./types";
+import { DrawLine, User } from "./types";
 
 const app = express();
 const server = http.createServer(app);
@@ -30,11 +30,11 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on("ready", (newUser) => {
+  socket.on("ready", (newUser: User) => {
     socket.broadcast.emit("addNewUser", newUser)
   })
 
-  socket.on("userLeft", (newUser) => {
+  socket.on("userLeft", (newUser: User) => {
     socket.broadcast.emit("removeUser", newUser);
   });
 
